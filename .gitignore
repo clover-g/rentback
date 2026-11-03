@@ -1,0 +1,38 @@
+# deps / build
+node_modules/
+.next/
+.next-static/
+out/
+.open-next/
+.wrangler/
+*.tsbuildinfo
+next-env.d.ts
+
+# env / secrets
+.env*
+!.env.example
+*.pem
+.dev.vars*
+
+# keypairs & local test state (never commit)
+fee-wallet-test.json
+scripts/test-user.json
+tests/.keys/
+tests/.ledger/
+*keypair*.json
+
+# promo / screenshots / media / scratch
+promo/
+shots/
+/*.png
+/*.mp4
+/*.wav
+/*.m4a
+shot.tmp.mjs
+blowfish-request.md
+
+# backups / logs / misc
+*backup*/
+*.log
+logs/
+.DS_Store

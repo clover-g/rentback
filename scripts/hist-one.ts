@@ -1,0 +1,10 @@
+import { Connection, PublicKey } from "@solana/web3.js";
+import { fetchHistory } from "../lib/history";
+const conn = new Connection(process.env.NEXT_PUBLIC_RPC_URL!, { commitment: "confirmed", httpHeaders: { Origin: "https://rentbacksol.app" } });
+const FW = new PublicKey("GbXQhLxNVmbt67pS7uY2FHVamMkTZAEokHNJ63zKoZp8");
+(async () => { const o = new PublicKey(process.argv[2]);
+  const sigs = await conn.getSignaturesForAddress(o, { limit: 1000 }); console.log("total sigs (<=1000)", sigs.length, "idx of 3K8f", sigs.findIndex((s) => s.signature.startsWith("3K8fCo9r")), "idx 2s5j", sigs.findIndex((s) => s.signature.startsWith("2s5j8dd6")));
+  let before: string | undefined; for (let pg = 0; pg < 3; pg++) { const t0 = Date.now(); const p = await fetchHistory(conn, o, FW, { limit: 20, before, scan: Number(process.argv[3] || 100) });
+  console.log("page", pg, "items", p.items.length, "done", p.done, Date.now() - t0, "ms");
+  for (const it of p.items) console.log("  ", new Date(it.time! * 1000).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" }), "net", it.net / 1e9, "gross", it.gross / 1e9, "fee", it.fee / 1e9, "txFee", it.txFee, "closed", it.closed, it.sig.slice(0, 8));
+  if (p.done) break; before = p.before; } })();

@@ -1,0 +1,5 @@
+{ "name": "rentback", "compatibility_date": "2026-10-01", "account_id": "7484410000cf46b1b70317fed44e8240",
+  "main": "worker/index.ts",
+  "workers_dev": true,
+  "routes": [ { "pattern": "rentbacksol.app", "custom_domain": true }, { "pattern": "www.rentbacksol.app", "custom_domain": true } ],
+  "assets": { "directory": "./.next-static", "not_found_handling": "404-page", "binding": "ASSETS", "run_worker_first": ["/s", "/og", "/admin", "/admin/"] } }
